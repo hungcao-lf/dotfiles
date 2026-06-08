@@ -1,0 +1,6 @@
+# backup tạo ra khi chạy install.sh
+*.bak
+*.bak.*
+
+# rác macOS
+.DS_Store
