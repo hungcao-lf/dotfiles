@@ -47,7 +47,8 @@ fi
 if [ -x /opt/homebrew/bin/brew ]; then eval "$(/opt/homebrew/bin/brew shellenv)";
 elif [ -x /usr/local/bin/brew ]; then eval "$(/usr/local/bin/brew shellenv)"; fi
 
-log "Cài tmux, Alacritty, font Nerd..."
+log "Cài tmux, Alacritty, font Nerd, jq..."
+brew list jq              >/dev/null 2>&1 || brew install jq
 brew list tmux            >/dev/null 2>&1 || brew install tmux
 brew list --cask alacritty                  >/dev/null 2>&1 || brew install --cask alacritty
 brew list --cask font-jetbrains-mono-nerd-font >/dev/null 2>&1 || brew install --cask font-jetbrains-mono-nerd-font
@@ -62,7 +63,10 @@ cp "$DOTFILES_DIR/tmux/.tmux.conf"      ~/.tmux.conf
 cp "$DOTFILES_DIR/tmux/nyan-anim.sh"    ~/.config/tmux/nyan-anim.sh
 cp "$DOTFILES_DIR/tmux/tmux-launch.sh"  ~/.config/tmux/tmux-launch.sh
 cp "$DOTFILES_DIR/tmux/tmux-pwd.sh"     ~/.config/tmux/tmux-pwd.sh
-chmod +x ~/.config/tmux/nyan-anim.sh ~/.config/tmux/tmux-launch.sh ~/.config/tmux/tmux-pwd.sh
+cp "$DOTFILES_DIR/tmux/tmux-claude.sh"  ~/.config/tmux/tmux-claude.sh
+cp "$DOTFILES_DIR/tmux/claude-usage-statusline.sh" ~/.config/tmux/claude-usage-statusline.sh
+chmod +x ~/.config/tmux/nyan-anim.sh ~/.config/tmux/tmux-launch.sh ~/.config/tmux/tmux-pwd.sh \
+         ~/.config/tmux/tmux-claude.sh ~/.config/tmux/claude-usage-statusline.sh
 
 # ---------------------------------------------------------------------------
 # 3) Alacritty config (thay placeholder bằng đường dẫn launcher thật)
@@ -103,7 +107,26 @@ clone_or_pull https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ~/.tmux/plugins/tpm/bin/install_plugins || warn "install_plugins lỗi (chạy lại prefix + I trong tmux)"
 
 # ---------------------------------------------------------------------------
-# 6) Đặt zsh làm shell mặc định
+# 6) Claude Code statusLine -> cầu nối % rate-limit ra tmux
+#    (widget "5h NN%" ở status bar đọc cache do statusLine ghi)
+# ---------------------------------------------------------------------------
+if [ -d "$HOME/.claude" ] || command -v claude >/dev/null 2>&1; then
+  log "Cấu hình statusLine của Claude Code..."
+  mkdir -p "$HOME/.claude"
+  SETTINGS="$HOME/.claude/settings.json"
+  [ -f "$SETTINGS" ] || echo '{}' > "$SETTINGS"
+  cp "$SETTINGS" "$SETTINGS.bak.$(date +%Y%m%d%H%M%S)"
+  tmp="$(mktemp)"
+  jq --arg cmd "$HOME/.config/tmux/claude-usage-statusline.sh" \
+     '.statusLine = {type:"command", command:$cmd, padding:0}' \
+     "$SETTINGS" > "$tmp" && mv "$tmp" "$SETTINGS"
+else
+  warn "Không thấy Claude Code (~/.claude) — bỏ qua statusLine."
+  warn "Widget '5h NN%' ở tmux sẽ ẩn cho tới khi có dữ liệu usage."
+fi
+
+# ---------------------------------------------------------------------------
+# 7) Đặt zsh làm shell mặc định
 # ---------------------------------------------------------------------------
 ZSH_BIN="$(command -v zsh)"
 if [ "${SHELL:-}" != "$ZSH_BIN" ]; then

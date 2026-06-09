@@ -25,6 +25,9 @@ Sau khi xong: **mở một cửa sổ Alacritty mới** → tự vào tmux.
 | tmux config | `tmux/.tmux.conf` | `~/.tmux.conf` |
 | tmux launcher | `tmux/tmux-launch.sh` | `~/.config/tmux/tmux-launch.sh` |
 | nyan cat status bar | `tmux/nyan-anim.sh` | `~/.config/tmux/nyan-anim.sh` |
+| pwd ở status bar | `tmux/tmux-pwd.sh` | `~/.config/tmux/tmux-pwd.sh` |
+| widget usage Claude | `tmux/tmux-claude.sh` | `~/.config/tmux/tmux-claude.sh` |
+| statusLine Claude Code | `tmux/claude-usage-statusline.sh` | `~/.config/tmux/claude-usage-statusline.sh` |
 | Alacritty | `alacritty/alacritty.toml` | `~/.config/alacritty/alacritty.toml` |
 | zsh | `zsh/.zshrc` | `~/.zshrc` |
 
@@ -47,6 +50,29 @@ TPM + plugin tmux (resurrect + continuum), theme Alacritty.
 
 Thêm Alacritty vào **System Settings → General → Login Items → "+"**.
 Đăng nhập → Alacritty mở → `tmux-launch.sh` chạy → session cũ hiện lại.
+
+## Widget usage Claude ở status bar (`5h NN%`)
+
+Hiện **% CÒN LẠI của cửa sổ rate-limit 5 giờ** của Claude Code, kèm giờ reset
+(vd `5h 70% ↻18:50`). Tô màu: xanh → vàng → đỏ khi sắp hết. Dữ liệu cũ hơn
+15' (không có session Claude nào chạy) sẽ bị làm mờ + thêm dấu `~`.
+
+Cách hoạt động:
+
+```
+Claude Code  --(statusLine, stdin JSON)-->  claude-usage-statusline.sh
+                                                   |  ghi ~/.cache/claude-usage
+                                                   v
+                                   tmux #(tmux-claude.sh)  -> status bar
+```
+
+`install.sh` tự gắn `statusLine` vào `~/.claude/settings.json` (merge bằng jq,
+không đụng các key khác; có backup).
+
+> ⚠️ **Không có "số token còn lại" tuyệt đối.** Anthropic không công bố hạn mức
+> token của Max/Pro. Thứ chính thống & trung thực nhất là **% cửa sổ rate-limit**
+> mà Claude Code đưa cho `statusLine` (`rate_limits.five_hour.used_percentage`,
+> `resets_at`). Widget chỉ cập nhật khi có session Claude Code đang chạy.
 
 ## Phím tắt tmux (prefix = `Ctrl-a`)
 
