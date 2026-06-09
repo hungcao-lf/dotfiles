@@ -61,7 +61,8 @@ backup ~/.tmux.conf
 cp "$DOTFILES_DIR/tmux/.tmux.conf"      ~/.tmux.conf
 cp "$DOTFILES_DIR/tmux/nyan-anim.sh"    ~/.config/tmux/nyan-anim.sh
 cp "$DOTFILES_DIR/tmux/tmux-launch.sh"  ~/.config/tmux/tmux-launch.sh
-chmod +x ~/.config/tmux/nyan-anim.sh ~/.config/tmux/tmux-launch.sh
+cp "$DOTFILES_DIR/tmux/tmux-pwd.sh"     ~/.config/tmux/tmux-pwd.sh
+chmod +x ~/.config/tmux/nyan-anim.sh ~/.config/tmux/tmux-launch.sh ~/.config/tmux/tmux-pwd.sh
 
 # ---------------------------------------------------------------------------
 # 3) Alacritty config (thay placeholder bằng đường dẫn launcher thật)
