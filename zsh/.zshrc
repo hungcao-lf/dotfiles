@@ -102,3 +102,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# ---- Alias cá nhân ----
+# Chạy Claude Code bỏ qua MỌI prompt xin phép (YOLO mode).
+# Chỉ dùng trong thư mục/dự án bạn tin tưởng.
+alias claudesudo="claude --dangerously-skip-permissions"
