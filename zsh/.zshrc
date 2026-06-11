@@ -110,3 +110,5 @@ alias claudesudo="claude --dangerously-skip-permissions"
 
 # Hiện ảnh Goku (block art) trong terminal — bỏ ảnh vào ~/.config/tmux/art/goku.png
 alias goku="~/.config/tmux/goku.sh"
+# Bé gái anime pixel động (8 frame) — chạy ~6s rồi thoát
+alias animegirl="chafa --duration 6 ~/.config/tmux/art/anime-girl.gif"

@@ -87,6 +87,12 @@ rồi:
 > Repo **không kèm ảnh** (tránh dính bản quyền) — bạn tự thêm ảnh của mình. Mọi
 > `*.png/jpg/gif` đều bị `.gitignore` bỏ qua.
 
+**Bé gái anime pixel (8 frame động):** `tmux/make-anime-girl.py` vẽ một sprite
+pixel-art **gốc** (chibi twin-tail, chớp mắt + nhún + lấp lánh) ra
+`~/.config/tmux/art/anime-girl.gif`. `install.sh` tự chạy nó (cần `Pillow`).
+Xem: gõ `animegirl` hoặc `prefix + G`. Tạo lại tay:
+`python3 ~/.config/tmux/make-anime-girl.py`.
+
 ## Phím tắt tmux (prefix = `Ctrl-a`)
 
 | Phím | Tác dụng |

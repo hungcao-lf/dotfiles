@@ -68,9 +68,18 @@ cp "$DOTFILES_DIR/tmux/tmux-claude.sh"  ~/.config/tmux/tmux-claude.sh
 cp "$DOTFILES_DIR/tmux/claude-usage-statusline.sh" ~/.config/tmux/claude-usage-statusline.sh
 cp "$DOTFILES_DIR/tmux/tmux-pet.sh"     ~/.config/tmux/tmux-pet.sh
 cp "$DOTFILES_DIR/tmux/goku.sh"         ~/.config/tmux/goku.sh
+cp "$DOTFILES_DIR/tmux/make-anime-girl.py" ~/.config/tmux/make-anime-girl.py
 chmod +x ~/.config/tmux/nyan-anim.sh ~/.config/tmux/tmux-launch.sh ~/.config/tmux/tmux-pwd.sh \
          ~/.config/tmux/tmux-claude.sh ~/.config/tmux/claude-usage-statusline.sh \
          ~/.config/tmux/tmux-pet.sh ~/.config/tmux/goku.sh
+
+# Sinh sprite anime-girl.gif (pixel-art gốc, 8 frame) — cần python3 + Pillow
+if command -v python3 >/dev/null 2>&1; then
+  python3 -m pip install --user --quiet Pillow >/dev/null 2>&1 || true
+  python3 ~/.config/tmux/make-anime-girl.py >/dev/null 2>&1 \
+    && log "Đã tạo art/anime-girl.gif" \
+    || warn "Chưa tạo được anime-girl.gif (thiếu Pillow) — tạo sau: python3 ~/.config/tmux/make-anime-girl.py"
+fi
 
 # ---------------------------------------------------------------------------
 # 3) Alacritty config (thay placeholder bằng đường dẫn launcher thật)
