@@ -4,3 +4,10 @@
 
 # rác macOS
 .DS_Store
+
+# ảnh người dùng tự thêm (không commit — tránh bản quyền)
+tmux/art/
+*.png
+*.jpg
+*.jpeg
+*.gif

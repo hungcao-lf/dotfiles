@@ -107,3 +107,6 @@ source $ZSH/oh-my-zsh.sh
 # Chạy Claude Code bỏ qua MỌI prompt xin phép (YOLO mode).
 # Chỉ dùng trong thư mục/dự án bạn tin tưởng.
 alias claudesudo="claude --dangerously-skip-permissions"
+
+# Hiện ảnh Goku (block art) trong terminal — bỏ ảnh vào ~/.config/tmux/art/goku.png
+alias goku="~/.config/tmux/goku.sh"
