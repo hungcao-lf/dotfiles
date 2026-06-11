@@ -47,9 +47,8 @@ fi
 if [ -x /opt/homebrew/bin/brew ]; then eval "$(/opt/homebrew/bin/brew shellenv)";
 elif [ -x /usr/local/bin/brew ]; then eval "$(/usr/local/bin/brew shellenv)"; fi
 
-log "Cài tmux, Alacritty, font Nerd, jq, chafa..."
+log "Cài tmux, Alacritty, font Nerd, jq..."
 brew list jq              >/dev/null 2>&1 || brew install jq
-brew list chafa           >/dev/null 2>&1 || brew install chafa
 brew list tmux            >/dev/null 2>&1 || brew install tmux
 brew list --cask alacritty                  >/dev/null 2>&1 || brew install --cask alacritty
 brew list --cask font-jetbrains-mono-nerd-font >/dev/null 2>&1 || brew install --cask font-jetbrains-mono-nerd-font
@@ -58,7 +57,7 @@ brew list --cask font-jetbrains-mono-nerd-font >/dev/null 2>&1 || brew install -
 # 2) tmux config + scripts
 # ---------------------------------------------------------------------------
 log "Đặt config tmux..."
-mkdir -p ~/.config/tmux ~/.config/tmux/art
+mkdir -p ~/.config/tmux
 backup ~/.tmux.conf
 cp "$DOTFILES_DIR/tmux/.tmux.conf"      ~/.tmux.conf
 cp "$DOTFILES_DIR/tmux/nyan-anim.sh"    ~/.config/tmux/nyan-anim.sh
@@ -66,20 +65,8 @@ cp "$DOTFILES_DIR/tmux/tmux-launch.sh"  ~/.config/tmux/tmux-launch.sh
 cp "$DOTFILES_DIR/tmux/tmux-pwd.sh"     ~/.config/tmux/tmux-pwd.sh
 cp "$DOTFILES_DIR/tmux/tmux-claude.sh"  ~/.config/tmux/tmux-claude.sh
 cp "$DOTFILES_DIR/tmux/claude-usage-statusline.sh" ~/.config/tmux/claude-usage-statusline.sh
-cp "$DOTFILES_DIR/tmux/tmux-pet.sh"     ~/.config/tmux/tmux-pet.sh
-cp "$DOTFILES_DIR/tmux/goku.sh"         ~/.config/tmux/goku.sh
-cp "$DOTFILES_DIR/tmux/make-anime-girl.py" ~/.config/tmux/make-anime-girl.py
 chmod +x ~/.config/tmux/nyan-anim.sh ~/.config/tmux/tmux-launch.sh ~/.config/tmux/tmux-pwd.sh \
-         ~/.config/tmux/tmux-claude.sh ~/.config/tmux/claude-usage-statusline.sh \
-         ~/.config/tmux/tmux-pet.sh ~/.config/tmux/goku.sh
-
-# Sinh sprite anime-girl.gif (pixel-art gốc, 8 frame) — cần python3 + Pillow
-if command -v python3 >/dev/null 2>&1; then
-  python3 -m pip install --user --quiet Pillow >/dev/null 2>&1 || true
-  python3 ~/.config/tmux/make-anime-girl.py >/dev/null 2>&1 \
-    && log "Đã tạo art/anime-girl.gif" \
-    || warn "Chưa tạo được anime-girl.gif (thiếu Pillow) — tạo sau: python3 ~/.config/tmux/make-anime-girl.py"
-fi
+         ~/.config/tmux/tmux-claude.sh ~/.config/tmux/claude-usage-statusline.sh
 
 # ---------------------------------------------------------------------------
 # 3) Alacritty config (thay placeholder bằng đường dẫn launcher thật)

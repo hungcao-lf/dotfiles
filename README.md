@@ -25,8 +25,6 @@ Sau khi xong: **mở một cửa sổ Alacritty mới** → tự vào tmux.
 | tmux config | `tmux/.tmux.conf` | `~/.tmux.conf` |
 | tmux launcher | `tmux/tmux-launch.sh` | `~/.config/tmux/tmux-launch.sh` |
 | nyan cat status bar | `tmux/nyan-anim.sh` | `~/.config/tmux/nyan-anim.sh` |
-| pet động (đổi `prefix+e`) | `tmux/tmux-pet.sh` | `~/.config/tmux/tmux-pet.sh` |
-| Goku/ảnh qua chafa (`prefix+g`) | `tmux/goku.sh` | `~/.config/tmux/goku.sh` |
 | pwd ở status bar | `tmux/tmux-pwd.sh` | `~/.config/tmux/tmux-pwd.sh` |
 | widget usage Claude | `tmux/tmux-claude.sh` | `~/.config/tmux/tmux-claude.sh` |
 | statusLine Claude Code | `tmux/claude-usage-statusline.sh` | `~/.config/tmux/claude-usage-statusline.sh` |
@@ -75,23 +73,6 @@ không đụng các key khác; có backup).
 > token của Max/Pro. Thứ chính thống & trung thực nhất là **% cửa sổ rate-limit**
 > mà Claude Code đưa cho `statusLine` (`rate_limits.five_hour.used_percentage`,
 > `resets_at`). Widget chỉ cập nhật khi có session Claude Code đang chạy.
-
-## Ảnh trong terminal — `chafa` (`prefix + g`)
-
-`tmux/goku.sh` đổi 1 ảnh thành **block art truecolor** (chạy được trên Alacritty,
-vốn không hỗ trợ ảnh thật). Tự bỏ ảnh của bạn vào `~/.config/tmux/art/goku.png`,
-rồi:
-- gõ `goku` (alias) để hiện trong pane, hoặc
-- `prefix + g` để hiện trong **popup nổi**.
-
-> Repo **không kèm ảnh** (tránh dính bản quyền) — bạn tự thêm ảnh của mình. Mọi
-> `*.png/jpg/gif` đều bị `.gitignore` bỏ qua.
-
-**Bé gái anime pixel (8 frame động):** `tmux/make-anime-girl.py` vẽ một sprite
-pixel-art **gốc** (chibi twin-tail, chớp mắt + nhún + lấp lánh) ra
-`~/.config/tmux/art/anime-girl.gif`. `install.sh` tự chạy nó (cần `Pillow`).
-Xem: gõ `animegirl` hoặc `prefix + G`. Tạo lại tay:
-`python3 ~/.config/tmux/make-anime-girl.py`.
 
 ## Phím tắt tmux (prefix = `Ctrl-a`)
 
