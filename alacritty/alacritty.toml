@@ -34,10 +34,11 @@ program = "__TMUX_LAUNCH__"
 args = []
 
 # ----------------------------------------------------------------------
-# Mở URL bằng chuột: Ctrl + click. (Bàn phím: Ctrl+Shift+O để chọn link.)
-# macOS: nếu Ctrl+click không ăn (bị hiểu thành right-click), đổi
-#        mods = "Control"  ->  mods = "Command"  cho dòng mouse bên dưới.
-# Hint mods sẽ "vượt" qua việc tmux đang giữ chuột, không cần giữ Shift.
+# Mở URL bằng CHUỘT: chỉ Ctrl + click (không Shift, không binding bàn phím).
+# macOS: nếu Ctrl+click không ăn (bị OS hiểu thành right-click), đổi 1 chữ
+#        mods = "Control"  ->  mods = "Command"  (= Cmd+click, chắc ăn trên Mac).
+# Nếu trong tmux mà click không tới Alacritty: tmux đang giữ chuột — tắt nhanh
+#        bằng Ctrl-a M, rồi Ctrl+click; bật lại Ctrl-a M khi xong.
 # ----------------------------------------------------------------------
 [hints]
 
@@ -46,6 +47,5 @@ regex = '(https?://|mailto:|ftp://|ssh://|file://)[^\s"<>{}]+'
 hyperlinks = true        # mở cả link OSC-8 (link "ẩn" sau chữ)
 post_processing = true   # tự cắt ký tự thừa ở cuối URL
 persist = false
-command = "open"         # macOS mở bằng app mặc định
+command = { program = "open", args = [] }   # macOS mở bằng app mặc định
 mouse = { enabled = true, mods = "Control" }
-binding = { key = "O", mods = "Control|Shift" }
