@@ -32,3 +32,20 @@ chars = "\u001B\r"
 [terminal.shell]
 program = "__TMUX_LAUNCH__"
 args = []
+
+# ----------------------------------------------------------------------
+# Mở URL bằng chuột: Ctrl + click. (Bàn phím: Ctrl+Shift+O để chọn link.)
+# macOS: nếu Ctrl+click không ăn (bị hiểu thành right-click), đổi
+#        mods = "Control"  ->  mods = "Command"  cho dòng mouse bên dưới.
+# Hint mods sẽ "vượt" qua việc tmux đang giữ chuột, không cần giữ Shift.
+# ----------------------------------------------------------------------
+[hints]
+
+[[hints.enabled]]
+regex = '(https?://|mailto:|ftp://|ssh://|file://)[^\s"<>{}]+'
+hyperlinks = true        # mở cả link OSC-8 (link "ẩn" sau chữ)
+post_processing = true   # tự cắt ký tự thừa ở cuối URL
+persist = false
+command = "open"         # macOS mở bằng app mặc định
+mouse = { enabled = true, mods = "Control" }
+binding = { key = "O", mods = "Control|Shift" }
